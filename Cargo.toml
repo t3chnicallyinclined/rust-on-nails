@@ -1,7 +1,5 @@
 [workspace]
 resolver = "2"
 members = [
-    "crates/axum-server",
-    "crates/db",
-    "crates/ui-components",
+    "crates/*",
 ]

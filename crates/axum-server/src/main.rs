@@ -3,20 +3,16 @@ mod errors;
 
 use crate::errors::CustomError;
 // 👇 update axum imports
-use axum::{
-    extract::Extension,
-    http::StatusCode,
-    response::Html,
-    response::IntoResponse,
-    response::Redirect,
-    response::Response,
-    routing::get,
-    routing::post,
-    Form,
-    Router,
-};
+use axum::body::Body;
+use axum::extract::{Extension, Path};
+use axum::http::{header, HeaderValue, StatusCode};
+use axum::{response::Html, response::IntoResponse, response::Response, response::Redirect, routing::get, routing::post, Router};
+use axum::Form;
+
 use serde::Deserialize;
 use std::net::SocketAddr;
+//use assets::templates::statics::StaticFile;
+
 // 👇 new import
 use validator::Validate;
 
@@ -29,6 +25,7 @@ async fn main() {
     // build our application with a route
     let app = Router::new()
         .route("/", get(users))
+        //.route("/static/*path", get(static_path))
         .route("/sign_up", post(accept_form))
         .layer(Extension(config))
         .layer(Extension(pool.clone()));
@@ -78,3 +75,23 @@ async fn accept_form(
     // 303 redirect to users list
     Ok(Redirect::to("/").into_response()) // 👈 add `.into_response()`
 }
+
+// async fn static_path(Path(path): Path<String>) -> impl IntoResponse {
+//     let path = path.trim_start_matches('/');
+
+//     if let Some(data) = StaticFile::get(path) {
+//         Response::builder()
+//             .status(StatusCode::OK)
+//             .header(
+//                 header::CONTENT_TYPE,
+//                 HeaderValue::from_str(data.mime.as_ref()).unwrap(),
+//             )
+//             .body(Body::from(data.content))
+//             .unwrap()
+//     } else {
+//         Response::builder()
+//             .status(StatusCode::NOT_FOUND)
+//             .body(Body::empty())
+//             .unwrap()
+//     }
+// }
