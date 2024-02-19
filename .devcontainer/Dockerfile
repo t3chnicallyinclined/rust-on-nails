@@ -14,4 +14,4 @@ RUN echo 'git config core.hooksPath /workspace/.devcontainer/.githooks' >> ~/.ba
 ARG USERNAME=vscode
 RUN sudo mkdir -p /workspace/target && sudo chown $USERNAME:$USERNAME /workspace/target
 
-#RUN sudo mkdir -p /workspace/crates/asset-pipeline/node_modules && sudo chown $USERNAME:$USERNAME /workspace/crates/asset-pipeline/node_modules
+RUN sudo mkdir -p /workspace/crates/asset-pipeline && sudo chown $USERNAME:$USERNAME /workspace/crates/asset-pipeline
