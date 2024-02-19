@@ -1,7 +1,9 @@
 FROM purtontech/rust-on-nails-devcontainer:1.1.17 AS development
-
+    
 COPY ps1.bash .
 RUN cat ps1.bash >> ~/.bashrc && sudo rm ps1.bash
+# Install libc6-compat and set environment variables
+
 
 COPY .bash_aliases /home/vscode/.bash_aliases
 
@@ -11,4 +13,5 @@ RUN echo 'git config core.hooksPath /workspace/.devcontainer/.githooks' >> ~/.ba
 # all the volumes configured in the docker-compose.yml
 ARG USERNAME=vscode
 RUN sudo mkdir -p /workspace/target && sudo chown $USERNAME:$USERNAME /workspace/target
+
 #RUN sudo mkdir -p /workspace/crates/asset-pipeline/node_modules && sudo chown $USERNAME:$USERNAME /workspace/crates/asset-pipeline/node_modules
