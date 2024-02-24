@@ -8,7 +8,11 @@ edition = "2021"
 [dependencies]
 axum = "0.7.4"
 db = { version = "0.1.0", path = "../db" }
+grpc-api = { version = "0.1.0", path = "../grpc-api"}
+http = "1.0.0"
 serde = { version = "1.0.196", features = ["derive"] }
 tokio = { version = "1.36.0", default-features = false, features = ["macros", "fs", "rt-multi-thread"] }
+tonic = { version = "0.11.0", features = ["tls", "transport"] }
+tower = { version = "0.4.13", features = ["steer"] }
 ui-components = { version = "0.1.0", path = "../ui-components" }
 validator = { version = "0.16.1", features = ["derive"] }
